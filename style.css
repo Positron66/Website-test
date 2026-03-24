@@ -1,0 +1,103 @@
+﻿body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2b2b2b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, 60px);
+    width: 480px;
+    border: 2px solid #222;
+    user-select: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    background: #ddd;
+}
+
+/* center the board in the page */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2b2b2b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.square {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* classic light / dark squares */
+.white {
+    background: #f0d9b5;
+}
+
+.black {
+    background: #b58863;
+}
+
+/* piece styling: simple, high-contrast for 2D view */
+.piece {
+    font-size: 40px;
+    line-height: 1;
+    pointer-events: none;
+    display: inline-block;
+}
+
+/* white pieces: white fill with dark stroke for contrast */
+.piece.white {
+    color: #ffffff;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.9);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+/* black pieces: near-black with subtle light stroke */
+.piece.black {
+    color: #0b0b0b;
+    -webkit-text-stroke: 0.6px rgba(255,255,255,0.6);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.square.selected {
+    outline: 3px solid #f39c12;
+    box-sizing: border-box;
+}
+
+.square.last-move {
+    background: linear-gradient(180deg, rgba(159,211,255,0.35), rgba(159,211,255,0.2));
+}
+
+.square.highlight {
+    outline: 3px solid rgba(46,204,113,0.9);
+    box-sizing: border-box;
+}
+
+.square.illegal {
+    animation: shake 0.28s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
+.square:hover {
+    filter: brightness(0.98);
+}
