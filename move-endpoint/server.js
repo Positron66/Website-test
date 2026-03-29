@@ -46,7 +46,39 @@ app.post('/log-move', (req, res) => {
   fs.appendFileSync(logFile, JSON.stringify(record) + '\n', 'utf8');
   return res.json({ ok: true });
 });
+app.get('/log-move', (req, res) => {
+	if (authFailed(req)) {
+		return res.status(401).json({ ok: false, error: 'Unauthorized' });
+	}
 
+	if (!fs.existsSync(logFile)) {
+		return res.json({ board: {}, moves: [], game: {} });
+	}
+
+	const lines = fs.readFileSync(logFile, 'utf8')
+		.split('\n')
+		.filter(Boolean);
+
+	if (lines.length === 0) {
+		return res.json({ board: {}, moves: [], game: {} });
+	}
+
+	const lastLine = lines[lines.length - 1];
+	try {
+		const record = JSON.parse(lastLine);
+		if (record && record.payload) {
+			return res.json({
+				board: record.payload.board || {},
+				moves: record.payload.moves || [],
+				game: record.payload.game || {}
+			});
+		}
+	} catch (error) {
+		// Parse error, return empty state
+	}
+
+	return res.json({ board: {}, moves: [], game: {} });
+});
 app.get('/logs', (req, res) => {
   if (authFailed(req)) {
     return res.status(401).json({ ok: false, error: 'Unauthorized' });
