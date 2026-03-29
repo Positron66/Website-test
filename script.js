@@ -52,6 +52,21 @@
 		});
 	}
 
+	let shakeTimer = null;
+	document.addEventListener('click', function (event) {
+		const redacted = event.target.closest('.redacted-word');
+		if (!redacted) return;
+
+		document.body.classList.remove('screen-shake');
+		void document.body.offsetWidth;
+		document.body.classList.add('screen-shake');
+
+		if (shakeTimer) clearTimeout(shakeTimer);
+		shakeTimer = setTimeout(function () {
+			document.body.classList.remove('screen-shake');
+		}, 420);
+	});
+
 	initializeChessAccessGate(initializeChessBoard);
 });
 
