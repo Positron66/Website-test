@@ -3,12 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Page 1</title>
+    <title>Page 3</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <main class="page dark" role="main" aria-label="Page 1">
+    <main class="page dark" role="main" aria-label="Page 3">
         <div class="frame">
+            <img class="music-signs-img" src="Assests/Art/musicsigns.png" alt="Music signs" />
+            <p class="entry-text">I have picked up playing the lute.
+
+        I'm not very good yet... 
+
+        but I find that music seems to calm people so I figured it is worth learning
+        
+        Also I think this lute is out of tune.</p>
             <!-- Background audio (user toggle) -->
             <audio id="bg-audio" preload="none">
                 <source src="Assests/Sound/Walsinghammp3(1).wav" type="audio/wav">
@@ -17,6 +25,9 @@
 
             <!-- Centered audio toggle button -->
             <button class="audio-toggle" aria-pressed="false" aria-controls="bg-audio" aria-label="Play audio"></button>
+
+            <!-- Temporary testing shortcut -->
+            <a class="test-jump-btn" href="page31.html" aria-label="Jump to chess game for testing">Quick Test: Chess</a>
         </div>
     </main>
     <script src="script.js"></script>

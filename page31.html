@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Page 31</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Optional: add your logging endpoint URL below to receive move events -->
+    <meta name="chess-log-endpoint" content="http://localhost:8787/log-move" />
+</head>
+<body>
+    <main class="page chess-entry" role="main" aria-label="Page 31">
+        <div class="frame">
+            <div class="page-number" aria-hidden="true">31</div>
+
+            <div class="chess-layout">
+                <section id="chess-board" class="chess-board" aria-label="Interactive chess board"></section>
+
+                <aside class="chess-panel" aria-label="Chess move log">
+                    <h1 class="chess-title">A Quiet Board</h1>
+                    <p class="chess-note">Select a piece, then select its destination square.</p>
+
+                    <div class="chess-controls">
+                        <button id="chess-reset" class="chess-btn" type="button">Reset Board</button>
+                        <button id="chess-copy-log" class="chess-btn" type="button">Copy Move Log</button>
+                    </div>
+
+                    <p id="chess-status" class="chess-status" aria-live="polite">Loading board...</p>
+                    <pre id="chess-move-list" class="chess-moves">No moves yet.</pre>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
