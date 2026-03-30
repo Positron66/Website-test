@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>New Friend</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main class="page entry" role="main" aria-label="New Friend">
+        <div class="frame">
+            <div class="page-number" aria-hidden="true">?</div>
+            <div class="newfriend-container">
+                <img class="newfriend-img" src="Assests/Art/new friend.png" alt="New friend" />
+                <img class="newfriend-eyes" id="newfriendEyes" src="Assests/Art/new friend eyes.png" alt="New friend eyes" />
+            </div>
+            <p class="entry-text">
+                Who is this?
+            </p>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        // Eyes following mouse functionality
+        const eyesElement = document.getElementById('newfriendEyes');
+        const container = document.querySelector('.newfriend-container');
+
+        document.addEventListener('mousemove', (e) => {
+            const containerRect = container.getBoundingClientRect();
+            const containerCenterX = containerRect.left + containerRect.width / 2;
+            const containerCenterY = containerRect.top + containerRect.height / 2;
+
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            const angle = Math.atan2(mouseY - containerCenterY, mouseX - containerCenterX) * (180 / Math.PI);
+
+            eyesElement.style.transform = `rotate(${angle}deg)`;
+        });
+    </script>
+</body>
+</html>
