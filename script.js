@@ -53,9 +53,18 @@
 	}
 
 	let shakeTimer = null;
+	const wrongSoundBase = new Audio('Assests/Sound/wrongsound.mp3');
+	wrongSoundBase.preload = 'auto';
 	document.addEventListener('click', function (event) {
 		const redacted = event.target.closest('.redacted-word');
 		if (!redacted) return;
+
+		// Clone the audio node so repeated clicks can overlap naturally.
+		const clickSound = wrongSoundBase.cloneNode(true);
+		clickSound.currentTime = 0;
+		clickSound.play().catch(function () {
+			// Ignore blocked playback errors; interaction usually allows it.
+		});
 
 		document.body.classList.remove('screen-shake');
 		void document.body.offsetWidth;

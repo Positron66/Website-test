@@ -285,7 +285,8 @@ body.screen-shake {
 
 /* Journal entry text styling */
 .entry-text{
-    margin: 0;
+    margin: 0 auto;
+    width: 100%;
     max-width: 860px;
     white-space: pre-line;
     line-height: 1.8;
