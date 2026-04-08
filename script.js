@@ -55,17 +55,12 @@
 	let shakeTimer = null;
 	const wrongSoundBase = new Audio('Assests/Sound/wrongsound.mp3');
 	wrongSoundBase.preload = 'auto';
-	document.addEventListener('click', function (event) {
-		const redacted = event.target.closest('.redacted-word');
-		if (!redacted) return;
+	const mapClickSoundBase = new Audio('Assests/Sound/click.mp3');
+	mapClickSoundBase.preload = 'auto';
+	const pageTurnSoundBase = new Audio('Assests/Sound/pageturn.mp3');
+	pageTurnSoundBase.preload = 'auto';
 
-		// Clone the audio node so repeated clicks can overlap naturally.
-		const clickSound = wrongSoundBase.cloneNode(true);
-		clickSound.currentTime = 0;
-		clickSound.play().catch(function () {
-			// Ignore blocked playback errors; interaction usually allows it.
-		});
-
+	function triggerScreenShake() {
 		document.body.classList.remove('screen-shake');
 		void document.body.offsetWidth;
 		document.body.classList.add('screen-shake');
@@ -74,7 +69,95 @@
 		shakeTimer = setTimeout(function () {
 			document.body.classList.remove('screen-shake');
 		}, 420);
+	}
+
+	function playWrongSoundAndShake() {
+		// Clone the audio node so repeated clicks can overlap naturally.
+		const clickSound = wrongSoundBase.cloneNode(true);
+		clickSound.currentTime = 0;
+		clickSound.play().catch(function () {
+			// Ignore blocked playback errors; interaction usually allows it.
+		});
+		triggerScreenShake();
+	}
+
+	function playMapClickSoundAndShake() {
+		const clickSound = mapClickSoundBase.cloneNode(true);
+		clickSound.currentTime = 0;
+		clickSound.play().catch(function () {
+			// Ignore blocked playback errors; interaction usually allows it.
+		});
+		triggerScreenShake();
+	}
+
+	document.addEventListener('click', function (event) {
+		if (event.target.closest('.redacted-word')) {
+			playWrongSoundAndShake();
+			return;
+		}
+		if (event.target.closest('.map-doodle-img.map-trigger')) {
+			playMapClickSoundAndShake();
+		}
 	});
+
+	const pageOneJumpLinks = document.querySelectorAll('.page1-jump-box a');
+	pageOneJumpLinks.forEach(function (link) {
+		link.addEventListener('click', function (event) {
+			const href = link.getAttribute('href');
+			if (!href) return;
+
+			event.preventDefault();
+
+			const clickSound = pageTurnSoundBase.cloneNode(true);
+			clickSound.currentTime = 0;
+			clickSound.play().catch(function () {
+				// Ignore blocked playback errors.
+			});
+
+			setTimeout(function () {
+				window.location.href = href;
+			}, 120);
+		});
+	});
+
+	const page12Main = document.querySelector('main.page[aria-label="Page 12"]');
+	const page12MapTrigger = document.querySelector('main.page[aria-label="Page 12"] .map-doodle-img.map-trigger');
+	if (page12Main && page12MapTrigger) {
+		let mapClickCount = 0;
+		let crackPulseTimer = null;
+		const crackStartsAfter = 5;
+		const redirectAt = 15;
+
+		function updateCrackState() {
+			const crackLevel = Math.max(0, Math.min(10, mapClickCount - crackStartsAfter));
+			if (crackLevel <= 0) {
+				document.body.classList.remove('page12-crack-active', 'page12-crack-pulse');
+				document.body.style.removeProperty('--page12-crack-level');
+				return;
+			}
+
+			document.body.classList.add('page12-crack-active');
+			document.body.style.setProperty('--page12-crack-level', String(crackLevel));
+
+			document.body.classList.remove('page12-crack-pulse');
+			void document.body.offsetWidth;
+			document.body.classList.add('page12-crack-pulse');
+
+			if (crackPulseTimer) clearTimeout(crackPulseTimer);
+			crackPulseTimer = setTimeout(function () {
+				document.body.classList.remove('page12-crack-pulse');
+			}, 220);
+		}
+
+		page12MapTrigger.addEventListener('click', function () {
+			mapClickCount += 1;
+			if (mapClickCount >= redirectAt) {
+				window.location.href = 'page89x.html';
+				return;
+			}
+			updateCrackState();
+		});
+	}
 
 	initializeChessAccessGate(initializeChessBoard);
 });

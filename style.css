@@ -227,6 +227,93 @@ body.screen-shake {
     justify-content: center;
 }
 
+/* Page 89 horror variant */
+.page.entry.page89-horror{
+    position: relative;
+    overflow: hidden;
+    background-image:
+        radial-gradient(900px 380px at 50% 35%, rgba(125, 255, 178, 0.09), rgba(0, 0, 0, 0) 55%),
+        radial-gradient(720px 260px at 50% 85%, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0) 72%),
+        linear-gradient(180deg, rgba(8, 20, 13, 0.88) 0%, rgba(6, 16, 11, 0.93) 50%, rgba(2, 8, 5, 0.98) 100%),
+        url('Assests/Art/Pagebackground.jpg');
+    filter: contrast(1.12) saturate(0.78) brightness(0.78);
+}
+
+.page.entry.page89-horror .entry-text{
+    color: #d4e5d7;
+    text-shadow:
+        0 6px 22px rgba(0, 0, 0, 0.95),
+        0 0 12px rgba(110, 255, 170, 0.24);
+    letter-spacing: 0.02em;
+    animation: page89TextFlicker 1.4s steps(2, end) infinite;
+}
+
+.page.entry.page89-horror .frame{
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.85);
+    animation: page89FrameTremor 0.3s steps(2, end) infinite;
+}
+
+.page.entry.page89-horror .page-number{
+    color: #c7ffdc;
+    text-shadow:
+        0 0 7px rgba(120, 255, 178, 0.4),
+        0 2px 6px rgba(0, 0, 0, 0.85);
+}
+
+.page.entry.page89-horror::before,
+.page.entry.page89-horror::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.page.entry.page89-horror::before{
+    background:
+        repeating-linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0) 0 3px,
+            rgba(0, 0, 0, 0.32) 3px 4px
+        ),
+        linear-gradient(90deg, rgba(80, 255, 150, 0.1) 0%, rgba(0, 0, 0, 0) 35%, rgba(75, 255, 160, 0.12) 68%, rgba(0, 0, 0, 0) 100%);
+    mix-blend-mode: multiply;
+    opacity: 0.42;
+    animation: page89ScanDrift 0.45s steps(2, end) infinite;
+}
+
+.page.entry.page89-horror::after{
+    background:
+        radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.75) 100%),
+        repeating-linear-gradient(62deg, rgba(145, 255, 186, 0) 0 12px, rgba(145, 255, 186, 0.3) 12px 13px, rgba(0, 0, 0, 0) 13px 26px);
+    mix-blend-mode: screen;
+    opacity: 0.26;
+    animation: page89CrackFlicker 1.1s steps(2, end) infinite;
+}
+
+@keyframes page89FrameTremor {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-0.6px, 0.4px); }
+    66% { transform: translate(0.8px, -0.5px); }
+}
+
+@keyframes page89TextFlicker {
+    0%, 100% { opacity: 0.95; filter: blur(0); }
+    18% { opacity: 1; filter: blur(0.15px); }
+    46% { opacity: 0.86; filter: blur(0.35px); }
+    72% { opacity: 1; filter: blur(0); }
+}
+
+@keyframes page89ScanDrift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(1.2px); }
+}
+
+@keyframes page89CrackFlicker {
+    0%, 100% { opacity: 0.2; }
+    30% { opacity: 0.34; }
+    60% { opacity: 0.24; }
+}
+
 .page-number{
     position: absolute;
     top: -75px;
@@ -236,6 +323,35 @@ body.screen-shake {
     letter-spacing: 0.06em;
     color: #f3f3f2;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.page1-jump-box{
+    position: absolute;
+    top: -74px;
+    left: -58px;
+    display: flex;
+    gap: 8px;
+    padding: 6px 10px;
+    border: 1px solid rgba(60, 46, 31, 0.45);
+    border-radius: 6px;
+    background: rgba(236, 222, 192, 0.35);
+    backdrop-filter: blur(1px);
+}
+
+.page1-jump-box a{
+    color: #3f3328;
+    text-decoration: none;
+    font-family: "Modernline", "Segoe Script", "Lucida Handwriting", cursive;
+    font-size: 18px;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.page1-jump-box a:hover,
+.page1-jump-box a:focus-visible{
+    background: rgba(73, 55, 35, 0.18);
+    outline: none;
 }
 
 .pigpen-i-img{
@@ -256,6 +372,188 @@ body.screen-shake {
     height: 24px;
     object-fit: contain;
     opacity: 0.92;
+}
+
+.slimemoid-doodle-img{
+    position: absolute;
+    left: -18px;
+    top: -80px;
+    width: 500px;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.map-doodle-img{
+    position: absolute;
+    right: -20px;
+    top: -80px;
+    width: 25px;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.88;
+    pointer-events: none;
+    filter:
+        hue-rotate(66deg)
+        saturate(1.8)
+        contrast(1.18)
+        drop-shadow(0 0 3px rgba(80, 255, 150, 0.55))
+        drop-shadow(0 0 9px rgba(44, 220, 120, 0.42));
+    transform-origin: center;
+    animation:
+        mapGlitchJitter 0.18s steps(2, end) infinite,
+        mapGlitchTint 1.7s steps(2, end) infinite,
+        mapGlitchSlice 2.1s steps(1, end) infinite;
+}
+
+.map-doodle-img.map-trigger{
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.map-doodle-img.map-trigger:hover,
+.map-doodle-img.map-trigger:focus-visible,
+.map-doodle-img.map-trigger:active{
+    filter:
+        hue-rotate(90deg)
+        saturate(2.6)
+        contrast(1.4)
+        brightness(1.12)
+        drop-shadow(0 0 6px rgba(120, 255, 170, 0.8))
+        drop-shadow(0 0 16px rgba(45, 245, 138, 0.65));
+    animation-duration: 0.1s, 0.9s, 0.95s;
+}
+
+body.page12-crack-active{
+    --page12-crack-level: 1;
+}
+
+body.page12-crack-active .page{
+    filter:
+        contrast(calc(1 + (var(--page12-crack-level) * 0.06)))
+        saturate(calc(1 + (var(--page12-crack-level) * 0.07)))
+        hue-rotate(calc(var(--page12-crack-level) * 2deg));
+    animation: page12CrackWarp calc(0.34s - (var(--page12-crack-level) * 0.015s)) steps(2, end) infinite;
+}
+
+body.page12-crack-active .frame{
+    animation: page12FrameShiver calc(0.55s - (var(--page12-crack-level) * 0.02s)) steps(2, end) infinite;
+}
+
+body.page12-crack-active::before,
+body.page12-crack-active::after{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 8;
+}
+
+body.page12-crack-active::before{
+    background:
+        repeating-linear-gradient(
+            118deg,
+            rgba(156, 255, 188, 0.0) 0 16px,
+            rgba(156, 255, 188, 0.4) 16px 17px,
+            rgba(0, 0, 0, 0.0) 17px 26px
+        ),
+        repeating-linear-gradient(
+            62deg,
+            rgba(134, 255, 166, 0.0) 0 22px,
+            rgba(134, 255, 166, 0.25) 22px 23px,
+            rgba(0, 0, 0, 0.0) 23px 34px
+        );
+    opacity: calc(0.08 + (var(--page12-crack-level) * 0.07));
+    mix-blend-mode: screen;
+    animation: page12CrackSpread calc(1.15s - (var(--page12-crack-level) * 0.06s)) steps(2, end) infinite;
+}
+
+body.page12-crack-active::after{
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(95, 255, 153, 0.2) 20%, rgba(0, 0, 0, 0) 45%, rgba(95, 255, 153, 0.17) 72%, rgba(0, 0, 0, 0) 100%),
+        repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0 6px, rgba(0, 0, 0, 0.3) 6px 8px);
+    opacity: calc(0.06 + (var(--page12-crack-level) * 0.05));
+    mix-blend-mode: hard-light;
+    animation: page12SignalTear calc(0.42s - (var(--page12-crack-level) * 0.02s)) steps(2, end) infinite;
+}
+
+body.page12-crack-active.page12-crack-pulse::after{
+    animation: page12SignalTear calc(0.42s - (var(--page12-crack-level) * 0.02s)) steps(2, end) infinite, page12CrackPulse 0.2s ease-out 1;
+}
+
+@keyframes page12CrackWarp {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(calc(var(--page12-crack-level) * 0.12px), calc(var(--page12-crack-level) * -0.08px)) rotate(calc(var(--page12-crack-level) * -0.05deg)); }
+    50% { transform: translate(calc(var(--page12-crack-level) * -0.2px), calc(var(--page12-crack-level) * 0.15px)) rotate(calc(var(--page12-crack-level) * 0.08deg)); }
+    75% { transform: translate(calc(var(--page12-crack-level) * 0.15px), calc(var(--page12-crack-level) * -0.1px)) rotate(calc(var(--page12-crack-level) * -0.04deg)); }
+}
+
+@keyframes page12FrameShiver {
+    0%, 100% { transform: translate(0, 0); }
+    35% { transform: translate(calc(var(--page12-crack-level) * -0.18px), calc(var(--page12-crack-level) * 0.1px)); }
+    68% { transform: translate(calc(var(--page12-crack-level) * 0.22px), calc(var(--page12-crack-level) * -0.14px)); }
+}
+
+@keyframes page12CrackSpread {
+    0%, 100% { transform: translateX(0) scale(1); }
+    50% { transform: translateX(calc(var(--page12-crack-level) * 0.5px)) scale(calc(1 + (var(--page12-crack-level) * 0.005))); }
+}
+
+@keyframes page12SignalTear {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(calc(var(--page12-crack-level) * -0.45px)); }
+    70% { transform: translateX(calc(var(--page12-crack-level) * 0.7px)); }
+}
+
+@keyframes page12CrackPulse {
+    0% { opacity: calc(0.14 + (var(--page12-crack-level) * 0.05)); }
+    100% { opacity: calc(0.06 + (var(--page12-crack-level) * 0.05)); }
+}
+
+@keyframes mapGlitchJitter {
+    0%, 100% { transform: translate(0, 0) skewX(0deg); }
+    25% { transform: translate(0.8px, -0.6px) skewX(0.6deg); }
+    50% { transform: translate(-1px, 0.7px) skewX(-0.9deg); }
+    75% { transform: translate(0.6px, -0.2px) skewX(0.3deg); }
+}
+
+@keyframes mapGlitchTint {
+    0%, 100% {
+        filter:
+            hue-rotate(66deg)
+            saturate(1.8)
+            contrast(1.18)
+            drop-shadow(0 0 3px rgba(80, 255, 150, 0.55))
+            drop-shadow(0 0 9px rgba(44, 220, 120, 0.42));
+    }
+    35% {
+        filter:
+            hue-rotate(96deg)
+            saturate(2.2)
+            contrast(1.28)
+            brightness(1.08)
+            drop-shadow(0 0 5px rgba(140, 255, 190, 0.8))
+            drop-shadow(0 0 14px rgba(44, 220, 120, 0.6));
+    }
+    70% {
+        filter:
+            hue-rotate(48deg)
+            saturate(1.5)
+            contrast(1.1)
+            drop-shadow(0 0 2px rgba(65, 220, 135, 0.45))
+            drop-shadow(0 0 7px rgba(35, 170, 95, 0.35));
+    }
+}
+
+@keyframes mapGlitchSlice {
+    0%, 100% { clip-path: inset(0 0 0 0); }
+    20% { clip-path: inset(6% 0 64% 0); }
+    22% { clip-path: inset(0 0 0 0); }
+    62% { clip-path: inset(62% 0 8% 0); }
+    64% { clip-path: inset(0 0 0 0); }
+    82% { clip-path: inset(22% 0 45% 0); }
+    84% { clip-path: inset(0 0 0 0); }
 }
 
 .flowerdoodle-img{
@@ -395,8 +693,13 @@ body.screen-shake {
     .page.entry{ padding: 84px 26px; }
 
     .page-number{ top: 0; right: 0; font-size: 18px; }
+    .page1-jump-box{ top: 0; left: 0; padding: 5px 8px; gap: 6px; }
+    .page1-jump-box a{ font-size: 15px; }
 
     .pigpen-i-img{ left: 0; bottom: 0; width: 22px; height: 22px; }
+
+    .slimemoid-doodle-img{ left: 0; top: 0; width: 96px; }
+    .map-doodle-img{ right: 0; top: 0; width: 120px; }
 
     .flowerdoodle-img{ left: 0; bottom: 0; width: 80px; }
     .flowerdoodle-hitbox{ left: 10px; bottom: 16px; width: 14px; height: 14px; }
