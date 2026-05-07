@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Page 72</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        main.page { position: relative; z-index: 2; }
+
+        /* crumpled paper button */
+        #crumpleBtn{
+            position: absolute;
+            bottom: 28px;
+            right: 28px;
+            width: 184px; /* doubled from 92px */
+            max-width: 36vw;
+            height: auto;
+            cursor: pointer;
+            z-index: 4;
+            filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+            transition: transform 150ms ease, opacity 150ms ease;
+            transform: rotate(35deg);
+            transform-origin: center center;
+        }
+        #crumpleBtn:active{ transform: rotate(35deg) scale(0.98); }
+
+        /* modal */
+        .newspaper-modal{ position: fixed; inset: 0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.6); opacity:0; pointer-events:none; transition: opacity 200ms ease; z-index:9999; }
+        .newspaper-modal.open{ opacity:1; pointer-events:auto; }
+        .newspaper-modal .modal-inner{ max-width: 92%; max-height: 92%; padding: 12px; overflow: visible; }
+        .newspaper-modal img{ display:block; max-width:100%; max-height:100%; border-radius:6px; box-shadow: 0 30px 80px rgba(0,0,0,0.8); transition: transform 240ms ease; transform-origin: center center; }
+        /* Scale the visible size of the newspaper image when modal is open (150%) */
+        .newspaper-modal.open .modal-inner img{ transform: scale(1.5); }
+    </style>
+</head>
+<body>
+    <main class="page entry" role="main" aria-label="Page 72">
+        <div class="frame">
+            <img src="Assests/Art/crumpledpaper.png" alt="Crumpled paper" id="crumpleBtn" class="crumple" />
+            <div class="page-number" aria-hidden="true">72</div>
+            <p class="entry-text">
+                Why did I do it
+                They were strangers, they did nothing to me
+                She said it was necessary but, why
+                why
+                
+
+            </p>
+        </div>
+    </main>
+    <!-- Newspaper modal (hidden until opened) -->
+    <div id="newspaperModal" class="newspaper-modal" role="dialog" aria-hidden="true">
+        <div class="modal-inner">
+            <img src="Assests/Art/newspaper.png" alt="Newspaper" id="newspaperImg" />
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Toggle newspaper modal when crumpled paper is clicked
+        (function(){
+            const btn = document.getElementById('crumpleBtn');
+            const modal = document.getElementById('newspaperModal');
+            const img = document.getElementById('newspaperImg');
+
+            function openModal(){
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden','false');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeModal(){
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden','true');
+                document.body.style.overflow = '';
+            }
+
+            btn && btn.addEventListener('click', function(e){ e.stopPropagation(); openModal(); });
+
+            // clicking outside the image closes
+            modal && modal.addEventListener('click', function(e){
+                if(e.target === modal) closeModal();
+            });
+
+            // allow Escape to close
+            document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+        })();
+    </script>
+</body>
+</html>

@@ -12,9 +12,25 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "ghoul-creepy";
+    src: url('Assests/Fonts/ghoul-creepy/Ghoul Creepy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* Basic reset */
 * { box-sizing: border-box; }
 html,body { height: 100%; margin: 0; }
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
 body {
     background: radial-gradient(1200px 600px at 10% 10%, #0b0810, #101018 40%, #241820 100%);
     background-attachment: fixed;
@@ -22,6 +38,20 @@ body {
     color: #e9ddc7;
     min-height: 100vh;
     padding: 0;
+}
+
+body.newfriend-bg {
+    background-image:
+        linear-gradient(180deg, rgba(10, 6, 14, 0.58) 0%, rgba(4, 2, 8, 0.7) 100%),
+        url('Assests/Art/new friend.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body.newfriend-bg main {
+    min-height: 100vh;
 }
 
 body.screen-shake {
@@ -122,10 +152,10 @@ body.screen-shake {
 .page.dark .entry-text{ text-align: center; }
 .music-signs-img{
     position: absolute;
-    left: 110px;
+    left: clamp(18px, 10vw, 110px);
     top: 50%;
     transform: translateY(-50%);
-    width: 250px;
+    width: clamp(84px, 22vw, 250px);
     height: auto;
     object-fit: contain;
     opacity: 0.92;
@@ -152,7 +182,7 @@ body.screen-shake {
 /* Centered audio toggle */
 .audio-toggle{
     position:absolute; left: 99.7%; top:102%; transform:translate(-50%,-50%);
-    width:150px; height:150px;
+    width:clamp(92px, 13vw, 150px); height:clamp(92px, 13vw, 150px);
     background: transparent url('Assests/Art/lute.png') center center / contain no-repeat;
     border:0;
     outline: none;
@@ -316,6 +346,7 @@ body.screen-shake {
     60% { opacity: 0.78; }
 }
 
+
 .page-number{
     position: absolute;
     top: -75px;
@@ -358,10 +389,10 @@ body.screen-shake {
 
 .pigpen-i-img{
     position: absolute;
-    left:  -60px;
-    bottom: -80px;
-    width: 24px;
-    height: 24px;
+    left:  clamp(-60px, -5vw, -10px);
+    bottom: clamp(-80px, -6vw, -12px);
+    width: clamp(20px, 2.2vw, 24px);
+    height: clamp(20px, 2.2vw, 24px);
     object-fit: contain;
     opacity: 0.92;
 }
@@ -397,19 +428,19 @@ body.screen-shake {
 
 .pigpen-a-img{
     position: absolute;
-    left:  -60px;
-    bottom: -80px;
-    width: 30px;
-    height: 30px;
+    left:  clamp(-60px, -5vw, -10px);
+    bottom: clamp(-80px, -6vw, -12px);
+    width: clamp(22px, 2.6vw, 30px);
+    height: clamp(22px, 2.6vw, 30px);
     object-fit: contain;
     opacity: 0.92;
 }
 
 .slimemoid-doodle-img{
     position: absolute;
-    left: -18px;
-    top: -80px;
-    width: 500px;
+    left: clamp(-18px, -1.4vw, -4px);
+    top: clamp(-80px, -6vw, -10px);
+    width: clamp(96px, 52vw, 500px);
     height: auto;
     object-fit: contain;
     opacity: 0.9;
@@ -418,9 +449,9 @@ body.screen-shake {
 
 .map-doodle-img{
     position: absolute;
-    right: -20px;
-    top: -80px;
-    width: 25px;
+    right: clamp(-20px, -1.8vw, -4px);
+    top: clamp(-80px, -6vw, -10px);
+    width: clamp(12px, 1.3vw, 19px);
     height: auto;
     object-fit: contain;
     opacity: 0.88;
@@ -589,9 +620,9 @@ body.page12-crack-active.page12-crack-pulse::after{
 
 .flowerdoodle-img{
     position: absolute;
-    left: -20px;
-    bottom: -90px;
-    width: 300px;
+    left: clamp(-20px, -1.8vw, -4px);
+    bottom: clamp(-90px, -6.5vw, -10px);
+    width: clamp(80px, 30vw, 300px);
     height: auto;
     object-fit: contain;
     opacity: 0.85;
@@ -788,7 +819,7 @@ body.page12-crack-active.page12-crack-pulse::after{
     .pigpen-l-link{ left: -4px; bottom: -4px; width: 22px; height: 22px; }
 
     .slimemoid-doodle-img{ left: 0; top: 0; width: 96px; }
-    .map-doodle-img{ right: 0; top: 0; width: 120px; }
+    .map-doodle-img{ right: 0; top: 0; width: 17px; }
 
     .flowerdoodle-img{ left: 0; bottom: 0; width: 80px; }
     .flowerdoodle-hitbox{ left: 10px; bottom: 16px; width: 14px; height: 14px; }
@@ -858,46 +889,48 @@ body.page12-crack-active.page12-crack-pulse::after{
 }
 
 .locked-entry .chess-access-gate.inline-gate{
-    margin-top: 26px;
-    transform: rotate(-15deg);
+    margin-top: 24px;
+    transform: translateX(-90px);
     transform-origin: center;
 }
 
 .locked-entry .chess-access-gate.inline-gate .chess-access-input{
     width: min(100%, 420px);
-    margin: 0 auto;
+    margin: 0;
+    margin-left: -180px;
     display: block;
-    border: 0;
-    border-bottom: 2px solid rgba(56, 146, 91, 0.76);
-    border-radius: 0;
-    background: transparent;
-    color: #86c8a4;
-    text-shadow:
-        0 0 7px rgba(67, 170, 108, 0.46),
-        0 2px 8px rgba(0, 0, 0, 0.25);
-    box-shadow: none;
-    caret-color: #8fd4ae;
-    font-family: "Modernline", "Segoe Script", "Lucida Handwriting", cursive;
-    font-size: 38px;
+    border: 1px solid rgba(80, 255, 150, 0.55);
+    border-radius: 6px;
+    background:
+        linear-gradient(180deg, rgba(8, 24, 15, 0.9) 0%, rgba(5, 18, 11, 0.9) 100%),
+        repeating-linear-gradient(90deg, rgba(150, 255, 190, 0.06) 0 1px, rgba(0, 0, 0, 0) 1px 4px);
+    color: #085c0c;
+    font-family: "ghoul-creepy", "Cascadia Mono", "Consolas", "Courier New", monospace;
+    font-size: 30px;
     line-height: 1.2;
-    text-align: center;
-    padding: 6px 8px;
+    letter-spacing: 0.03em;
+    padding: 10px 12px;
+    outline: none;
+    text-align: left;
+    caret-color: #83d8a6;
+    text-shadow:
+        0 0 6px rgba(80, 255, 150, 0.55),
+        0 1px 5px rgba(0, 0, 0, 0.52);
+    box-shadow:
+        inset 0 1px 0 rgba(6, 165, 75, 0.493),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.42),
+        0 0 10px rgba(44, 220, 120, 0.32);
     animation:
-        lockedInputGlitchJitter 0.18s steps(2, end) infinite,
-        lockedInputGlitchTint 1.65s steps(2, end) infinite,
-        lockedInputGlitchSlice 2.2s steps(1, end) infinite;
-    filter:
-        hue-rotate(14deg)
-        saturate(1.14)
-        contrast(1.06)
-        brightness(0.95);
+        lockedInputGlitchJitter 0.2s steps(2, end) infinite,
+        lockedInputGlitchTint 1.6s steps(2, end) infinite,
+        lockedInputGlitchSlice 2.3s steps(1, end) infinite;
 }
 
 .locked-entry .chess-access-gate.inline-gate .chess-access-input:focus-visible{
-    border-bottom-color: rgba(98, 205, 140, 0.94);
+    border-color: rgba(140, 255, 190, 0.8);
     box-shadow:
-        0 8px 14px -12px rgba(0, 0, 0, 0.5),
-        0 0 13px rgba(72, 184, 122, 0.42);
+        0 0 0 2px rgba(44, 220, 120, 0.34),
+        0 0 14px rgba(44, 220, 120, 0.42);
     outline: none;
 }
 
@@ -911,24 +944,28 @@ body.page12-crack-active.page12-crack-pulse::after{
 @keyframes lockedInputGlitchTint {
     0%, 100% {
         filter:
-            hue-rotate(14deg)
-            saturate(1.14)
-            contrast(1.06)
-            brightness(0.95);
+            hue-rotate(66deg)
+            saturate(1.8)
+            contrast(1.18)
+            drop-shadow(0 0 3px rgba(80, 255, 150, 0.55))
+            drop-shadow(0 0 9px rgba(44, 220, 120, 0.42));
     }
-    40% {
+    35% {
         filter:
-            hue-rotate(22deg)
-            saturate(1.3)
-            contrast(1.12)
-            brightness(1.03);
+            hue-rotate(96deg)
+            saturate(2.2)
+            contrast(1.28)
+            brightness(1.08)
+            drop-shadow(0 0 5px rgba(140, 255, 190, 0.8))
+            drop-shadow(0 0 14px rgba(44, 220, 120, 0.6));
     }
     70% {
         filter:
-            hue-rotate(6deg)
-            saturate(1.03)
-            contrast(1.01)
-            brightness(0.88);
+            hue-rotate(48deg)
+            saturate(1.5)
+            contrast(1.1)
+            drop-shadow(0 0 2px rgba(65, 220, 135, 0.45))
+            drop-shadow(0 0 7px rgba(35, 170, 95, 0.35));
     }
 }
 

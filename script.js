@@ -203,8 +203,27 @@ function initializeChessAccessGate(onUnlock) {
 	const corruptStep = Math.max(1, parseInt(gate.dataset.corruptStep || '2', 10) || 2);
 	const failRedirectTarget = (gate.dataset.failRedirectTarget || '').trim();
 	const failRedirectAttempts = Math.max(1, parseInt(gate.dataset.failRedirectAttempts || '5', 10) || 5);
+	const successRedirectTarget = (gate.dataset.successRedirectTarget || '').trim();
+	const successMapRaw = (gate.dataset.successMap || '').trim();
+	const successRedirectDelay = Math.max(0, parseInt(gate.dataset.successRedirectDelay || '120', 10) || 120);
+	const sessionSuccessTargetKey = sessionKey + '_success_target';
 	let wrongAttempts = 0;
 	let corruptPulseTimer = null;
+
+	const successTargetMap = new Map();
+	if (successMapRaw) {
+		successMapRaw.split(';').forEach(function (entry) {
+			const trimmedEntry = entry.trim();
+			if (!trimmedEntry) return;
+			const parts = trimmedEntry.split('=');
+			if (parts.length < 2) return;
+			const rawCode = parts.shift().trim();
+			const rawTarget = parts.join('=').trim();
+			if (!rawCode || !rawTarget) return;
+			const mapKey = isCaseSensitive ? rawCode : rawCode.toLowerCase();
+			successTargetMap.set(mapKey, rawTarget);
+		});
+	}
 
 	function applyWrongAttemptCorruption() {
 		wrongAttempts += 1;
@@ -236,6 +255,25 @@ function initializeChessAccessGate(onUnlock) {
 	}
 
 	if (sessionStorage.getItem(sessionKey) === 'true') {
+		if (successTargetMap.size > 0) {
+			const storedTarget = sessionStorage.getItem(sessionSuccessTargetKey);
+			if (storedTarget) {
+				if (typeof window.navigateWithPageTurn === 'function') {
+					window.navigateWithPageTurn(storedTarget, successRedirectDelay);
+				} else {
+					window.location.href = storedTarget;
+				}
+				return;
+			}
+		}
+		if (successRedirectTarget) {
+			if (typeof window.navigateWithPageTurn === 'function') {
+				window.navigateWithPageTurn(successRedirectTarget, successRedirectDelay);
+			} else {
+				window.location.href = successRedirectTarget;
+			}
+			return;
+		}
 		unlockAndStart();
 		return;
 	}
@@ -247,8 +285,44 @@ function initializeChessAccessGate(onUnlock) {
 	function checkCode() {
 		const value = input ? input.value.trim() : '';
 		const normalizedValue = isCaseSensitive ? value : value.toLowerCase();
+
+		if (successTargetMap.size > 0) {
+			const mappedTarget = successTargetMap.get(normalizedValue) || '';
+			if (mappedTarget) {
+				sessionStorage.setItem(sessionKey, 'true');
+				sessionStorage.setItem(sessionSuccessTargetKey, mappedTarget);
+				if (typeof window.navigateWithPageTurn === 'function') {
+					window.navigateWithPageTurn(mappedTarget, successRedirectDelay);
+				} else {
+					window.location.href = mappedTarget;
+				}
+				return;
+			}
+
+			applyWrongAttemptCorruption();
+			if (failRedirectTarget && wrongAttempts >= failRedirectAttempts) {
+				if (typeof window.navigateWithPageTurn === 'function') {
+					window.navigateWithPageTurn(failRedirectTarget, 120);
+				} else {
+					window.location.href = failRedirectTarget;
+				}
+				return;
+			}
+			if (error) error.textContent = errorMessage;
+			return;
+		}
+
 		const normalizedRequired = isCaseSensitive ? requiredCode : requiredCode.toLowerCase();
 		if (normalizedValue === normalizedRequired) {
+			if (successRedirectTarget) {
+				sessionStorage.setItem(sessionKey, 'true');
+				if (typeof window.navigateWithPageTurn === 'function') {
+					window.navigateWithPageTurn(successRedirectTarget, successRedirectDelay);
+				} else {
+					window.location.href = successRedirectTarget;
+				}
+				return;
+			}
 			unlockAndStart();
 			return;
 		}
