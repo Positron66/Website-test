@@ -74,7 +74,13 @@
                 document.body.style.overflow = '';
             }
 
-            btn && btn.addEventListener('click', function(e){ e.stopPropagation(); openModal(); });
+            btn && btn.addEventListener('click', function(e){
+                e.stopPropagation();
+                if (typeof window.playPageTurnSound === 'function') {
+                    window.playPageTurnSound();
+                }
+                openModal();
+            });
 
             // clicking outside the image closes
             modal && modal.addEventListener('click', function(e){
