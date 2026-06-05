@@ -178,8 +178,100 @@
 		});
 	}
 
+	initializeStoneSecret();
 	initializeChessAccessGate(initializeChessBoard);
 });
+
+function initializeStoneSecret() {
+	const page = document.querySelector('main.page[aria-label="Page X"]');
+	const stone = document.getElementById('page-x-stone');
+	const revealTargets = Array.from(document.querySelectorAll('.page-x-reveal-target'));
+	if (!page || !stone || revealTargets.length === 0) return;
+
+	let pointerId = null;
+	let startPointerX = 0;
+	let startPointerY = 0;
+	let startOffsetX = 0;
+	let startOffsetY = 0;
+
+	function currentOffsetX() {
+		return parseFloat(stone.style.getPropertyValue('--stone-x')) || 0;
+	}
+
+	function currentOffsetY() {
+		return parseFloat(stone.style.getPropertyValue('--stone-y')) || 0;
+	}
+
+	function setStonePosition(offsetX, offsetY) {
+		stone.style.setProperty('--stone-x', offsetX + 'px');
+		stone.style.setProperty('--stone-y', offsetY + 'px');
+	}
+
+	function updateRevealTarget(target) {
+		const targetRect = target.getBoundingClientRect();
+		const stoneRect = stone.getBoundingClientRect();
+		const intersects = !(
+			stoneRect.right < targetRect.left ||
+			stoneRect.left > targetRect.right ||
+			stoneRect.bottom < targetRect.top ||
+			stoneRect.top > targetRect.bottom
+		);
+
+		if (!intersects) {
+			target.style.setProperty('--page-x-reveal-radius', '0px');
+			target.style.visibility = 'hidden';
+			return;
+		}
+
+		const centerX = (stoneRect.left + stoneRect.right) / 2 - targetRect.left;
+		const centerY = (stoneRect.top + stoneRect.bottom) / 2 - targetRect.top;
+		const radius = Math.max(stoneRect.width, stoneRect.height) * 1.5;
+
+		target.style.setProperty('--page-x-reveal-x', centerX + 'px');
+		target.style.setProperty('--page-x-reveal-y', centerY + 'px');
+		target.style.setProperty('--page-x-reveal-radius', radius + 'px');
+		target.style.visibility = 'visible';
+	}
+
+	function updateReveal() {
+		revealTargets.forEach(updateRevealTarget);
+	}
+
+	stone.addEventListener('pointerdown', function (event) {
+		pointerId = event.pointerId;
+		startPointerX = event.clientX;
+		startPointerY = event.clientY;
+		startOffsetX = currentOffsetX();
+		startOffsetY = currentOffsetY();
+		stone.classList.add('is-dragging');
+		stone.setPointerCapture(pointerId);
+		event.preventDefault();
+		updateReveal();
+	});
+
+	stone.addEventListener('pointermove', function (event) {
+		if (pointerId === null || event.pointerId !== pointerId) return;
+		const offsetX = startOffsetX + (event.clientX - startPointerX);
+		const offsetY = startOffsetY + (event.clientY - startPointerY);
+		setStonePosition(offsetX, offsetY);
+		updateReveal();
+	});
+
+	function endDrag(event) {
+		if (pointerId === null || event.pointerId !== pointerId) return;
+		if (stone.hasPointerCapture(pointerId)) {
+			stone.releasePointerCapture(pointerId);
+		}
+		stone.classList.remove('is-dragging');
+		pointerId = null;
+		updateReveal();
+	}
+
+	stone.addEventListener('pointerup', endDrag);
+	stone.addEventListener('pointercancel', endDrag);
+	setStonePosition(0, 0);
+	updateReveal();
+}
 
 function initializeChessAccessGate(onUnlock) {
 	const gate = document.getElementById('chess-access-gate');
