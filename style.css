@@ -50,8 +50,100 @@ body.newfriend-bg {
     background-attachment: fixed;
 }
 
+body.page101-bg {
+    background:
+        radial-gradient(circle at 50% 45%, rgba(18, 56, 34, 0.5) 0%, rgba(5, 10, 7, 0.96) 52%, rgba(0, 0, 0, 1) 100%),
+        linear-gradient(180deg, #0b120d 0%, #050806 100%);
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
 body.newfriend-bg main {
     min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: Right;
+    justify-content: Right;
+    padding: 24px;
+}
+
+.newfriend-message {
+    margin: 0;
+    max-width: 12ch;
+    text-align: Right;
+    display: inline-block;
+    font-family: "youmurdererbb", "Modernline", "Segoe Script", "Lucida Handwriting", cursive;
+    font-size: clamp(32px, 6vw, 52px);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    color: #83d8a6;
+    text-shadow:
+        0 0 8px rgba(92, 214, 139, 0.48),
+        -1px 0 rgba(70, 255, 160, 0.3),
+        1px 0 rgba(34, 122, 82, 0.45);
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    animation: newfriendFadeIn 5s ease 100s forwards;
+}
+
+.newfriend-pigpen-a{
+    position: fixed;
+    left: 50%;
+    top: 58%;
+    width: clamp(180px, 30vw, 420px);
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    opacity: 1;
+    filter:
+        hue-rotate(66deg)
+        saturate(2.2)
+        contrast(1.35)
+        brightness(1.1)
+        drop-shadow(0 0 10px rgba(80, 255, 150, 0.7))
+        drop-shadow(0 0 24px rgba(44, 220, 120, 0.55));
+    transform-origin: center;
+    animation:
+        mapGlitchJitter 0.18s steps(2, end) infinite,
+        mapGlitchTint 1.7s steps(2, end) infinite,
+        mapGlitchSlice 2.1s steps(1, end) infinite;
+}
+
+.page.page101-page{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    background: transparent;
+}
+
+.page101-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.page101-pigpen-a{
+    position: absolute;
+    left: 46%;
+    top: 40%;
+    width: clamp(72px, 10vw, 132px);
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    opacity: 0.98;
+    filter:
+        hue-rotate(66deg)
+        saturate(2.1)
+        contrast(1.22)
+        brightness(1.05)
+        drop-shadow(0 0 5px rgba(80, 255, 150, 0.62))
+        drop-shadow(0 0 15px rgba(44, 220, 120, 0.45));
+    transform-origin: center;
+    animation:
+        mapGlitchJitter 0.18s steps(2, end) infinite,
+        mapGlitchTint 1.7s steps(2, end) infinite,
+        mapGlitchSlice 2.1s steps(1, end) infinite;
 }
 
 body.screen-shake {
@@ -69,6 +161,46 @@ body.screen-shake {
     70% { transform: translate(-2px, 2px) rotate(-0.16deg); }
     80% { transform: translate(1px, -1px) rotate(0.12deg); }
     90% { transform: translate(-1px, 1px) rotate(-0.08deg); }
+}
+
+@keyframes newfriendFadeIn {
+    0% {
+        opacity: 0;
+        filter: blur(7px);
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes newfriendPigpenAFadeIn {
+    0% {
+        opacity: 0;
+        filter:
+            hue-rotate(66deg)
+            saturate(1.8)
+            contrast(1.18)
+            drop-shadow(0 0 3px rgba(80, 255, 150, 0.55))
+            drop-shadow(0 0 9px rgba(44, 220, 120, 0.42))
+            blur(5px);
+        transform: translate(-50%, -50%) translateY(8px);
+    }
+    100% {
+        opacity: 1;
+        filter:
+            hue-rotate(66deg)
+            saturate(2.2)
+            contrast(1.35)
+            brightness(1.1)
+            drop-shadow(0 0 10px rgba(80, 255, 150, 0.7))
+            drop-shadow(0 0 24px rgba(44, 220, 120, 0.55));
+        transform: translate(-50%, -50%) translateY(0);
+    }
 }
 
 /* Journal cover */
@@ -675,43 +807,6 @@ body.page12-crack-active.page12-crack-pulse::after{
     75% { transform: translate(0.6px, -0.2px) skewX(0.3deg); }
 }
 
-@keyframes mapGlitchTint {
-    0%, 100% {
-        filter:
-            hue-rotate(66deg)
-            saturate(1.8)
-            contrast(1.18)
-            drop-shadow(0 0 3px rgba(80, 255, 150, 0.55))
-            drop-shadow(0 0 9px rgba(44, 220, 120, 0.42));
-    }
-    35% {
-        filter:
-            hue-rotate(96deg)
-            saturate(2.2)
-            contrast(1.28)
-            brightness(1.08)
-            drop-shadow(0 0 5px rgba(140, 255, 190, 0.8))
-            drop-shadow(0 0 14px rgba(44, 220, 120, 0.6));
-    }
-    70% {
-        filter:
-            hue-rotate(48deg)
-            saturate(1.5)
-            contrast(1.1)
-            drop-shadow(0 0 2px rgba(65, 220, 135, 0.45))
-            drop-shadow(0 0 7px rgba(35, 170, 95, 0.35));
-    }
-}
-
-@keyframes mapGlitchSlice {
-    0%, 100% { clip-path: inset(0 0 0 0); }
-    20% { clip-path: inset(6% 0 64% 0); }
-    22% { clip-path: inset(0 0 0 0); }
-    62% { clip-path: inset(62% 0 8% 0); }
-    64% { clip-path: inset(0 0 0 0); }
-    82% { clip-path: inset(22% 0 45% 0); }
-    84% { clip-path: inset(0 0 0 0); }
-}
 
 .flowerdoodle-img{
     position: absolute;
@@ -799,14 +894,12 @@ body.page12-crack-active.page12-crack-pulse::after{
 }
 
 .friend-glitch::before{
-    content: "friend";
     color: rgba(90, 255, 164, 0.36);
     transform: translate(-1px, 0);
     mix-blend-mode: screen;
 }
 
 .friend-glitch::after{
-    content: "friend";
     color: rgba(33, 102, 68, 0.62);
     transform: translate(1px, 0);
     mix-blend-mode: multiply;

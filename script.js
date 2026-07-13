@@ -1,5 +1,30 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
 	const turnButtons = document.querySelectorAll('.turn');
+	const isNewFriendPage = document.body.classList.contains('newfriend-bg');
+	const breathingAudio = document.getElementById('newfriend-breathing');
+	let breathingStarted = false;
+
+	function startBreathingAudio() {
+		if (!isNewFriendPage || !breathingAudio || breathingStarted) return;
+		breathingStarted = true;
+		breathingAudio.volume = 0.5;
+		breathingAudio.play().catch(function () {
+			breathingStarted = false;
+		});
+	}
+
+	if (isNewFriendPage && breathingAudio) {
+		breathingAudio.volume = 0.12;
+		breathingAudio.addEventListener('ended', function () {
+			breathingAudio.currentTime = 0;
+			breathingAudio.play().catch(function () {
+				breathingStarted = false;
+			});
+		});
+		startBreathingAudio();
+		document.addEventListener('pointerdown', startBreathingAudio, { once: true, passive: true });
+		document.addEventListener('keydown', startBreathingAudio, { once: true });
+	}
 
 	// Audio toggle on standalone pages
 	const audio = document.getElementById('bg-audio');
