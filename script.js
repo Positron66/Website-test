@@ -120,6 +120,13 @@
 		triggerScreenShake();
 	}
 
+	const fullScreenWrongSoundButton = document.querySelector('.page-refresh-button');
+	if (fullScreenWrongSoundButton) {
+		fullScreenWrongSoundButton.addEventListener('click', function () {
+			playWrongSoundAndShake();
+		});
+	}
+
 	function playMapClickSoundAndShake() {
 		const clickSound = mapClickSoundBase.cloneNode(true);
 		clickSound.currentTime = 0;
