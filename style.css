@@ -108,15 +108,15 @@ body.newfriend-bg main {
     min-height: 100vh;
     position: relative;
     display: flex;
-    align-items: Right;
-    justify-content: Right;
+    align-items: center;
+    justify-content: center;
     padding: 24px;
 }
 
 .newfriend-message {
     margin: 0;
-    max-width: 12ch;
-    text-align: Right;
+    max-width: 700px;
+    text-align: center;
     display: inline-block;
     font-family: "youmurdererbb", "Modernline", "Segoe Script", "Lucida Handwriting", cursive;
     font-size: clamp(32px, 6vw, 52px);
@@ -129,8 +129,9 @@ body.newfriend-bg main {
         1px 0 rgba(34, 122, 82, 0.45);
     opacity: 0;
     clip-path: inset(0 0 100% 0);
-    animation: newfriendFadeIn 5s ease 100s forwards;
+    animation: newfriendFadeIn 10s ease 100s forwards;
 }
+
 
 .newfriend-pigpen-a{
     position: fixed;
