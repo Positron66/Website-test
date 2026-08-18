@@ -1011,6 +1011,8 @@ body.page12-crack-active.page12-crack-pulse::after{
     display: inline-block;
     position: relative;
     font-family: "youmurdererbb", "Modernline", "Segoe Script", "Lucida Handwriting", cursive;
+    font-size: 1.35em;
+    line-height: 0.9;
     color: #83d8a6;
     text-shadow:
         0 0 6px rgba(92, 214, 139, 0.45),
@@ -1020,6 +1022,12 @@ body.page12-crack-active.page12-crack-pulse::after{
         friendGlitchJitter 0.2s steps(2, end) infinite,
         friendGlitchTint 1.5s steps(2, end) infinite,
         friendGlitchSlice 2.4s steps(1, end) infinite;
+}
+
+.locked-phrase{
+    font-size: clamp(1.7rem, 4.2vw, 2.6rem);
+    line-height: 1.1;
+    text-align: left;
 }
 
 .friend-glitch::before,
